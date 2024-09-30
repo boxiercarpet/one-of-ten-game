@@ -1,4 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+    createApi,
+    fetchBaseQuery,
+    TagTypesFromApi,
+} from "@reduxjs/toolkit/query/react";
 import { setToken } from "../store/auth";
 
 const baseQuery = fetchBaseQuery({
@@ -25,5 +29,22 @@ const baseQueryWithAuth = async (args: any, api: any, extraOptions: any) => {
 
 export const api = createApi({
     baseQuery: baseQueryWithAuth,
+    tagTypes: ["Game"],
     endpoints: () => ({}),
 });
+
+export const generateProvidedTags = <T>(
+    tag: TagTypesFromApi<typeof api>,
+    idGetter: (result: T) => any
+) => {
+    return (result: T[] | undefined) =>
+        result
+            ? [
+                  ...result.map(idGetter).map((id) => ({
+                      type: tag,
+                      id,
+                  })),
+                  tag,
+              ]
+            : [tag];
+};

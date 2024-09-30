@@ -27,12 +27,12 @@ export class AuthService {
         };
     }
 
-    async register(data: { username: string; password: string }) {
-        const password = bcrypt.hashSync(data.password, 10);
+    async register(username: string, password: string) {
+        const hash = bcrypt.hashSync(password, 10);
         try {
             const user = await this.userService.createUser({
-                username: data.username,
-                password,
+                username: username,
+                password: hash,
             });
             return this.login(user);
         } catch (error) {

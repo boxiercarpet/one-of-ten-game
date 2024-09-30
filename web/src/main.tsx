@@ -9,8 +9,9 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import Login from "./pages/login";
 import Register from "./pages/register";
-import Dashboard from "./pages/dashboard";
+import DashboardPage from "./pages/dashboard";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import GamePage from "./pages/dashboard/game";
 
 const persistor = persistStore(store);
 
@@ -24,7 +25,14 @@ createRoot(document.getElementById("root")!).render(
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route element={<ProtectedRoutes />}>
-                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route
+                                path="/dashboard"
+                                element={<DashboardPage />}
+                            />
+                            <Route
+                                path="/dashboard/:gameId"
+                                element={<GamePage />}
+                            />
                         </Route>
                     </Routes>
                 </BrowserRouter>

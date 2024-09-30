@@ -18,16 +18,21 @@ import { CreateTeamDto } from './dto/team.dto';
 
 @Controller('games')
 export class GameController {
-    constructor(private readonly quizService: GameService) {}
+    constructor(private readonly gameService: GameService) {}
+
+    @Get()
+    getQuizzes(@GetUser() user: User) {
+        return this.gameService.games(user.id);
+    }
 
     @Get(':id')
-    getQuiz(id: string) {
-        return this.quizService.game(id);
+    getGame(id: string) {
+        return this.gameService.game(id);
     }
 
     @Post()
-    createQuiz(@GetUser() user: User, @Body() body: CreateGameDto) {
-        return this.quizService.createGame(user.id, body.title);
+    createGame(@GetUser() user: User, @Body() body: CreateGameDto) {
+        return this.gameService.createGame(user.id, body.title);
     }
 
     @Patch(':id')
@@ -36,22 +41,22 @@ export class GameController {
         @Param('id') id: string,
         @Body() body: UpdateGameDto,
     ) {
-        await this.quizService.checkGameAuthor(id, user.id);
-        return this.quizService.updateGame(id, body);
+        await this.gameService.checkGameAuthor(id, user.id);
+        return this.gameService.updateGame(id, body);
     }
 
     @Delete(':id')
     async deleteQuiz(@GetUser() user: User, @Param('id') id: string) {
-        await this.quizService.checkGameAuthor(id, user.id);
-        return this.quizService.deleteGame(id);
+        await this.gameService.checkGameAuthor(id, user.id);
+        return this.gameService.deleteGame(id);
     }
 
     // Questions
 
     @Get(':id/questions')
     async getQuestions(@GetUser() user: User, @Param('id') quizId: string) {
-        await this.quizService.checkGameAuthor(quizId, user.id);
-        return this.quizService.questions(quizId);
+        await this.gameService.checkGameAuthor(quizId, user.id);
+        return this.gameService.questions(quizId);
     }
 
     @Post(':id/questions')
@@ -60,8 +65,8 @@ export class GameController {
         @Param('id') quizId: string,
         @Body() body: CreateQuestionDto,
     ) {
-        await this.quizService.checkGameAuthor(quizId, user.id);
-        return this.quizService.createQuestion(quizId, body);
+        await this.gameService.checkGameAuthor(quizId, user.id);
+        return this.gameService.createQuestion(quizId, body);
     }
 
     @Patch(':id/questions/:questionId')
@@ -71,8 +76,8 @@ export class GameController {
         @Param('questionId') questionId: string,
         @Body() body: CreateQuestionDto,
     ) {
-        await this.quizService.checkGameAuthor(quizId, user.id);
-        return this.quizService.updateQuestion(questionId, body);
+        await this.gameService.checkGameAuthor(quizId, user.id);
+        return this.gameService.updateQuestion(questionId, body);
     }
 
     @Delete(':id/questions/:questionId')
@@ -81,21 +86,21 @@ export class GameController {
         @Param('id') quizId: string,
         @Param('questionId') questionId: string,
     ) {
-        await this.quizService.checkGameAuthor(quizId, user.id);
-        return this.quizService.deleteQuestion(questionId);
+        await this.gameService.checkGameAuthor(quizId, user.id);
+        return this.gameService.deleteQuestion(questionId);
     }
 
     @Post(':id/questions/roll')
     async rollQuestion(@GetUser() user: User, @Param('id') quizId: string) {
-        await this.quizService.checkGameAuthor(quizId, user.id);
-        return this.quizService.rollQuestion(quizId);
+        await this.gameService.checkGameAuthor(quizId, user.id);
+        return this.gameService.rollQuestion(quizId);
     }
 
     // Teams
 
     @Get(':id/teams')
     async getTeams(@Param('id') quizId: string) {
-        return this.quizService.teams(quizId);
+        return this.gameService.teams(quizId);
     }
 
     @Post(':id/teams')
@@ -104,8 +109,8 @@ export class GameController {
         @Param('id') quizId: string,
         @Body() body: CreateTeamDto,
     ) {
-        await this.quizService.checkGameAuthor(quizId, user.id);
-        return this.quizService.createTeam(quizId, body.name);
+        await this.gameService.checkGameAuthor(quizId, user.id);
+        return this.gameService.createTeam(quizId, body.name);
     }
 
     @Patch(':id/teams/:teamId')
@@ -115,8 +120,8 @@ export class GameController {
         @Param('teamId') teamId: string,
         @Body() body: CreateTeamDto,
     ) {
-        await this.quizService.checkGameAuthor(quizId, user.id);
-        return this.quizService.updateTeam(teamId, body);
+        await this.gameService.checkGameAuthor(quizId, user.id);
+        return this.gameService.updateTeam(teamId, body);
     }
 
     @Delete(':id/teams/:teamId')
@@ -125,13 +130,13 @@ export class GameController {
         @Param('id') quizId: string,
         @Param('teamId') teamId: string,
     ) {
-        await this.quizService.checkGameAuthor(quizId, user.id);
-        return this.quizService.deleteTeam(teamId);
+        await this.gameService.checkGameAuthor(quizId, user.id);
+        return this.gameService.deleteTeam(teamId);
     }
 
     @Post(':id/teams/roll')
     async rollTeam(@GetUser() user: User, @Param('id') quizId: string) {
-        await this.quizService.checkGameAuthor(quizId, user.id);
-        return this.quizService.rollTeam(quizId);
+        await this.gameService.checkGameAuthor(quizId, user.id);
+        return this.gameService.rollTeam(quizId);
     }
 }

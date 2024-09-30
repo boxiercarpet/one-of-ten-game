@@ -10,6 +10,14 @@ export class GameService {
         private gameGateway: GameGateway,
     ) {}
 
+    async games(authorId: string) {
+        return this.prisma.game.findMany({
+            where: {
+                authorId,
+            },
+        });
+    }
+
     async game(id: string) {
         return this.prisma.game.findUnique({
             where: {

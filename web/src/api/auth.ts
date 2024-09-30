@@ -1,4 +1,5 @@
 import { api } from ".";
+import { User } from "../types";
 
 type AuthResponse = {
     access_token: string;
@@ -32,9 +33,9 @@ const authApi = api.injectEndpoints({
                 body,
             }),
         }),
-        me: build.query({
+        me: build.query<User, void>({
             query: () => ({
-                url: "/auth/me",
+                url: "/users/@me",
             }),
         }),
     }),

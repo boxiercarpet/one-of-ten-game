@@ -8,6 +8,7 @@ import { RegisterDto } from './dto/auth.dto';
 export class AuthController {
     constructor(private authService: AuthService) {}
 
+    @Public()
     @UseGuards(AuthGuard('local'))
     @Post('login')
     async login(@Request() req: any) {
@@ -17,6 +18,6 @@ export class AuthController {
     @Public()
     @Post('register')
     async register(@Body() data: RegisterDto) {
-        return this.authService.register(data);
+        return this.authService.register(data.username, data.password);
     }
 }
