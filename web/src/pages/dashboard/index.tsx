@@ -3,11 +3,15 @@ import { useMeQuery } from "../../api/auth";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../store/auth";
 import { useState } from "react";
-import CreateGameModal from "../../components/modals/dashboard/CreateGame";
+import CreateGameModal from "../../components/modals/CreateGame";
+import { useGetGamesQuery } from "../../api/game";
+import Loading from "../../components/Loading";
+import GameElement from "../../components/dashboard/Game";
 
 function DashboardPage() {
     const dispatch = useDispatch();
     const { data: me } = useMeQuery();
+    const { data: games } = useGetGamesQuery();
     const [createModal, setCreateModal] = useState(false);
 
     return (
@@ -32,7 +36,7 @@ function DashboardPage() {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col p-4 bg-slate-600/10 backdrop-blur-xl rounded-lg text-white text-2xl gap-6 w-[32rem] font-semibold h-[32rem]">
+                <div className="flex flex-col p-4 bg-slate-600/10 backdrop-blur-xl rounded-lg text-white text-2xl w-[32rem] font-semibold h-[32rem]">
                     <div className="flex justify-between select-none">
                         <div>Your Games</div>
                         <div
@@ -43,10 +47,21 @@ function DashboardPage() {
                             <div>Create</div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-2">
-                        <div className="text-center text-sm text-slate-400 select-none">
-                            YOU DON'T HAVE ANY GAME
-                        </div>
+                    <div className="bg-slate-400/10 h-0.5 rounded-full mt-3 mb-3"></div>
+                    <div className="flex flex-col gap-2 flex-1 shrink-0 overflow-auto">
+                        {games?.map((game) => (
+                            <GameElement key={game.id} game={game} />
+                        ))}
+                        {games?.length === 0 && (
+                            <div className="text-center text-sm text-slate-400 select-none">
+                                YOU DON'T HAVE ANY GAME
+                            </div>
+                        )}
+                        {!games && (
+                            <div className="flex-1 w-full">
+                                <Loading />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

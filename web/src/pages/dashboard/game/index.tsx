@@ -6,7 +6,7 @@ function GamePage() {
     return (
         <Routes>
             <Route path="/" element={<GamePanelPage />} />
-            <Route path="/edit" element={<GameEditPage />} />
+            <Route path="/edit/*" element={<GameEditPage />} />
         </Routes>
     );
 }

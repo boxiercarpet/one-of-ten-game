@@ -12,3 +12,11 @@ export interface Game {
     currentQuestionId: string | null;
     currentTeamId: string | null;
 }
+
+export interface Team {
+    id: string;
+    name: string;
+    lives: number;
+    score: number;
+    gameId: string;
+}

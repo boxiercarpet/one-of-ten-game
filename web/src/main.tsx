@@ -30,7 +30,7 @@ createRoot(document.getElementById("root")!).render(
                                 element={<DashboardPage />}
                             />
                             <Route
-                                path="/dashboard/:gameId"
+                                path="/dashboard/:gameId/*"
                                 element={<GamePage />}
                             />
                         </Route>

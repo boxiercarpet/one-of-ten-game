@@ -26,7 +26,7 @@ export class GameController {
     }
 
     @Get(':id')
-    getGame(id: string) {
+    getGame(@Param('id') id: string) {
         return this.gameService.game(id);
     }
 
@@ -113,24 +113,26 @@ export class GameController {
         return this.gameService.createTeam(quizId, body.name);
     }
 
-    @Patch(':id/teams/:teamId')
+    @Patch('teams/:teamId')
     async updateTeam(
         @GetUser() user: User,
         @Param('id') quizId: string,
         @Param('teamId') teamId: string,
         @Body() body: CreateTeamDto,
     ) {
-        await this.gameService.checkGameAuthor(quizId, user.id);
+        // TODO: Check if the user are the author of the quiz
+        // await this.gameService.checkGameAuthor(quizId, user.id);
         return this.gameService.updateTeam(teamId, body);
     }
 
-    @Delete(':id/teams/:teamId')
+    @Delete('teams/:teamId')
     async deleteTeam(
         @GetUser() user: User,
         @Param('id') quizId: string,
         @Param('teamId') teamId: string,
     ) {
-        await this.gameService.checkGameAuthor(quizId, user.id);
+        // TODO: Check if the user are the author of the quiz
+        // await this.gameService.checkGameAuthor(quizId, user.id);
         return this.gameService.deleteTeam(teamId);
     }
 
