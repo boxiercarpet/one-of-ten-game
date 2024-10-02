@@ -12,6 +12,7 @@ import Register from "./pages/register";
 import DashboardPage from "./pages/dashboard";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import GamePage from "./pages/dashboard/game";
+import AudiencePage from "./pages/audience";
 
 const persistor = persistStore(store);
 
@@ -24,6 +25,10 @@ createRoot(document.getElementById("root")!).render(
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
+                        <Route
+                            path="/audience/:gameId"
+                            element={<AudiencePage />}
+                        />
                         <Route element={<ProtectedRoutes />}>
                             <Route
                                 path="/dashboard"

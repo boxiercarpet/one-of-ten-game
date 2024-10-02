@@ -91,10 +91,13 @@ function GameEditPage() {
                                 <FaDesktop />
                                 <div>Manage</div>
                             </Link>
-                            <div className="flex justify-center items-center gap-2 cursor-pointer hover:text-slate-300 bg-slate-600/20 flex-1 p-1 rounded-md">
+                            <Link
+                                to={"/audience/" + params.gameId}
+                                className="flex justify-center items-center gap-2 cursor-pointer hover:text-slate-300 bg-slate-600/20 flex-1 p-1 rounded-md"
+                            >
                                 <FaShareNodes />
                                 <div>Audience</div>
-                            </div>
+                            </Link>
                         </div>
                         <div
                             className="flex items-center gap-2 cursor-pointer hover:text-slate-300 px-3"
