@@ -1,35 +1,36 @@
 import { api } from ".";
-import { Team } from "../types";
+import { Question, Team } from "../types";
 
-const teamApi = api.injectEndpoints({
+const questionApi = api.injectEndpoints({
     endpoints: (build) => ({
-        updateTeam: build.mutation<
-            Team,
+        updateQuestion: build.mutation<
+            Question,
             {
                 id: string;
-                data: { name?: string; lives?: number; score?: number };
+                data: { content?: string; answer?: string };
             }
         >({
             query: ({ id, data }) => ({
-                url: `/teams/${id}`,
+                url: `/questions/${id}`,
                 method: "PATCH",
                 body: data,
             }),
             invalidatesTags: (_result, _error, { id }) => [
-                { type: "GameTeam", id },
+                { type: "GameQuestion", id },
             ],
         }),
-        deleteTeam: build.mutation<Team, string>({
+        deleteQuestion: build.mutation<Question, string>({
             query: (id) => ({
-                url: `/teams/${id}`,
+                url: `/questions/${id}`,
                 method: "DELETE",
             }),
             invalidatesTags: (_result, _error, id) => [
-                { type: "GameTeam", id },
+                { type: "GameQuestion", id },
             ],
         }),
     }),
     overrideExisting: false,
 });
 
-export const { useUpdateTeamMutation, useDeleteTeamMutation } = teamApi;
+export const { useUpdateQuestionMutation, useDeleteQuestionMutation } =
+    questionApi;

@@ -7,6 +7,7 @@ import { GameModule } from './game/game.module';
 import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TeamModule } from './team/team.module';
+import { QuestionModule } from './question/question.module';
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { TeamModule } from './team/team.module';
             exclude: ['/api*'],
         }),
         TeamModule,
+        QuestionModule,
     ],
     controllers: [AppController],
     providers: [AppService],

@@ -1,18 +1,21 @@
-import { useDeleteTeamMutation } from "../../api/team";
-import { Team } from "../../types";
+import { useNavigate } from "react-router-dom";
+import { Game, Question } from "../../types";
 import Modal from "../Modal";
+import { useDeleteGameMutation } from "../../api/game";
+import { useDeleteQuestionMutation } from "../../api/question";
 
-function DeleteTeamModal({
-    team,
+function DeleteQuestionModal({
+    question,
     setIsOpen,
 }: {
-    team: Team;
+    question: Question;
     setIsOpen: (isOpen: boolean) => void;
 }) {
-    const [deleteTeam] = useDeleteTeamMutation();
+    const [deleteQuestion] = useDeleteQuestionMutation();
+    const navigate = useNavigate();
 
     async function handleDelete() {
-        await deleteTeam(team.id);
+        await deleteQuestion(question.id);
         setIsOpen(false);
     }
 
@@ -20,7 +23,7 @@ function DeleteTeamModal({
         <Modal setIsOpen={setIsOpen}>
             <div className="flex flex-col p-4 bg-slate-600/10 backdrop-blur-xl rounded-lg text-white gap-3 w-72 font-semibold select-none">
                 <div className="text-xl font-semibold text-center">
-                    Are you sure you want to delete {team.name}?
+                    Are you sure you want to delete this question?
                 </div>
                 <div className="flex gap-2">
                     <button
@@ -41,4 +44,4 @@ function DeleteTeamModal({
     );
 }
 
-export default DeleteTeamModal;
+export default DeleteQuestionModal;

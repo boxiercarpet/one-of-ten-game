@@ -13,10 +13,23 @@ export interface Game {
     currentTeamId: string | null;
 }
 
+export interface FullGame extends Game {
+    teams: Team[];
+    currentQuestion: Question | null;
+    currentTeam: Team | null;
+}
+
 export interface Team {
     id: string;
     name: string;
     lives: number;
     score: number;
+    gameId: string;
+}
+
+export interface Question {
+    id: string;
+    content: string;
+    answer: string;
     gameId: string;
 }

@@ -29,7 +29,7 @@ const baseQueryWithAuth = async (args: any, api: any, extraOptions: any) => {
 
 export const api = createApi({
     baseQuery: baseQueryWithAuth,
-    tagTypes: ["Game", "GameTeam"],
+    tagTypes: ["Game", "GameTeam", "GameQuestion"],
     endpoints: () => ({}),
 });
 

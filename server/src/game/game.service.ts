@@ -25,6 +25,8 @@ export class GameService {
             },
             include: {
                 teams: true,
+                currentQuestion: true,
+                currentTeam: true,
             },
         });
     }
