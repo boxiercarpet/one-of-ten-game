@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { GameModule } from './game/game.module';
 import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { TeamModule } from './team/team.module';
 
 @Module({
     imports: [
@@ -17,6 +18,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
             rootPath: '../web/dist',
             exclude: ['/api*'],
         }),
+        TeamModule,
     ],
     controllers: [AppController],
     providers: [AppService],

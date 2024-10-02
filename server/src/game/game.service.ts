@@ -176,31 +176,6 @@ export class GameService {
         return team;
     }
 
-    async updateTeam(id: string, data: Prisma.TeamUpdateInput) {
-        const team = await this.prisma.team.update({
-            where: {
-                id,
-            },
-            data,
-        });
-        this.gameGateway.server
-            .to('game-' + team.gameId)
-            .emit('teamUpdated', team);
-        return team;
-    }
-
-    async deleteTeam(id: string) {
-        const team = await this.prisma.team.delete({
-            where: {
-                id,
-            },
-        });
-        this.gameGateway.server
-            .to('game-' + team.gameId)
-            .emit('teamDeleted', team);
-        return team;
-    }
-
     async rollTeam(gameId: string) {
         const teams = await this.prisma.team.findMany({
             where: {

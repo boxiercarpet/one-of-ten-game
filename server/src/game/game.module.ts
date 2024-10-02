@@ -8,5 +8,6 @@ import { GameGateway } from './game.gateway';
     providers: [GameService, GameGateway],
     controllers: [GameController],
     imports: [PrismaModule],
+    exports: [GameGateway],
 })
 export class GameModule {}
